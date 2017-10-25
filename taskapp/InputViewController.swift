@@ -15,6 +15,7 @@ class InputViewController: UIViewController {
     @IBOutlet weak var titleTxtField: UITextField!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var category: UITextField!
     
     var task: Task!
     let realm = try! Realm()
@@ -26,6 +27,7 @@ class InputViewController: UIViewController {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
         
+        category.text = task.category
         titleTxtField.text = task.title
         contentsTextView.text = task.contents
         datePicker.date = task.date as Date
@@ -45,6 +47,7 @@ class InputViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         try! realm.write {
+            self.task.category = self.category.text!
             self.task.title = self.titleTxtField.text!
             self.task.contents = self.contentsTextView.text
             self.task.date = self.datePicker.date as NSDate

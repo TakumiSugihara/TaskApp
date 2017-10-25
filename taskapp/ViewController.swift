@@ -13,6 +13,7 @@ import UserNotifications
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var serchText: UITextField!
     
     // Realmインスタンスを取得する
     let realm = try! Realm()
@@ -22,6 +23,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 以降内容をアップデートするとリスト内は自動的に更新される。
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
 
+    // 検索
+    @IBAction func serch(_ sender: Any) {
+        taskArray = try! Realm().objects(Task.self).filter("category = serchText")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -44,8 +50,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 各セルの内容を返すメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 再利用可能な cell を得る
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
+
+        // Cellに値を設定する.
+        let task = taskArray[indexPath.row]
+        cell.textLabel?.text = task.title
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        
+        let dateString:String = formatter.string(from: task.date as Date)
+        cell.detailTextLabel?.text = dateString
+
         return cell
     }
     
