@@ -13,7 +13,8 @@ import UserNotifications
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var serchText: UITextField!
+    @IBOutlet weak var serchTextField: UITextField!
+
     
     // Realmインスタンスを取得する
     let realm = try! Realm()
@@ -22,10 +23,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 日付近い順\順でソート：降順
     // 以降内容をアップデートするとリスト内は自動的に更新される。
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+    
+    // 変数
+    var serchText = ""
 
     // 検索
     @IBAction func serch(_ sender: Any) {
-        taskArray = try! Realm().objects(Task.self).filter("category = serchText")
+        serchText = serchTextField.text!
+        taskArray = try! Realm().objects(Task.self).filter("category == %@", serchText).sorted(byKeyPath: "date", ascending: false)
+        viewDidLoad()
     }
     
     override func viewDidLoad() {

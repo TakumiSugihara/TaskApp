@@ -91,14 +91,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="serchText" destination="xWB-Ll-nY2" id="DMg-Qm-az5"/>
+                        <outlet property="serchTextField" destination="xWB-Ll-nY2" id="65d-ML-apk"/>
                         <outlet property="tableView" destination="mpb-2A-r6L" id="5Eo-hY-bWc"/>
                         <segue destination="PDv-dO-4yh" kind="show" identifier="cellSegue" id="BQd-rt-rPR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1075.5" y="133.5"/>
+            <point key="canvasLocation" x="1167" y="48"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TbY-hp-7mS">
