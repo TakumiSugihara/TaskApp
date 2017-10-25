@@ -31,7 +31,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func serch(_ sender: Any) {
         serchText = serchTextField.text!
         taskArray = try! Realm().objects(Task.self).filter("category == %@", serchText).sorted(byKeyPath: "date", ascending: false)
-        viewDidLoad()
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
