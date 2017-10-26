@@ -30,8 +30,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 検索
     @IBAction func serch(_ sender: Any) {
         serchText = serchTextField.text!
-        taskArray = try! Realm().objects(Task.self).filter("category == %@", serchText).sorted(byKeyPath: "date", ascending: false)
+        if serchText.isEmpty{
+            taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+        }else{
+            taskArray = try! Realm().objects(Task.self).filter("category == %@", serchText).sorted(byKeyPath: "date", ascending: false)
+        }
         tableView.reloadData()
+        view.endEditing(true)
     }
     
     override func viewDidLoad() {
